@@ -1,7 +1,10 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="container">
-    <h1 class="titulo">Lista de empleados</h1>
-    <a href="{{ url('empleado/create') }}">Nuevo Registro</a>
-    <div class="table-responsive">
+    <h1 class="text-center">Lista de empleados</h1>
+    <a href="{{ url('empleado/create') }}" class="mb-3">Nuevo Registro</a>
+    <div class="table-responsive mt-3">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -16,22 +19,24 @@
             </thead>
             <tbody>
                 @foreach($empleados as $empleado)
-                <tr class="">
+                <tr>
                     <td scope="row">{{ $empleado->id}}</td>
                     <td>
-                        <img src="{{ asset('storage').'/'.$empleado->Foto }}" style="width: 80px; height: auto">
+                        <img src="{{ asset('storage').'/'.$empleado->Foto }}" class="img-thumbnail rounded" width="100px">
                     </td>
                     <td>{{ $empleado->Nombre}}</td>
                     <td>{{ $empleado->PrimerApellido}}</td>
                     <td>{{ $empleado->SegundoApellido}}</td>
                     <td>{{ $empleado->Correo}}</td>
                     <td>
-                        <a href="{{ url('empleado/'.$empleado->id.'/edit') }}">Editar</a>
+                        <a href="{{ url('empleado/'.$empleado->id.'/edit') }}" class="btn btn-primary">
+                            Editar
+                        </a>
 
                         <form action="{{ url('empleado/'.$empleado->id) }}" method="post">
                             @csrf
                             {{ method_field('DELETE') }}
-                            <input type="submit" onclick="return confirm('¿Seguro que deseas borrar este elemento?')" value="Eliminar">
+                            <input type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas borrar este elemento?')" value="Eliminar">
                         </form>
                     </td>
                 </tr>
@@ -40,3 +45,4 @@
         </table>
     </div> 
 </div>
+@endsection

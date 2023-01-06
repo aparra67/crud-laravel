@@ -29,5 +29,5 @@
   @endif
   <input class="form-control" type="file" name="Foto" value="" id="Foto">
 </div>
-<a href="{{ url('empleado/') }}">Volver</a>
-<button type="submit" class="btn btn-primary">Enviar</button>
+<a href="{{ url('empleado/') }}" class="me-1">< Volver</a>
+<button type="submit" class="btn btn-success">Enviar</button>
