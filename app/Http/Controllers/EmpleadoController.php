@@ -43,7 +43,7 @@ class EmpleadoController extends Controller
             $datosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public');
         }
         Empleado::insert($datosEmpleado);
-        return response()->json($datosEmpleado);
+        return redirect('empleado');
     }
 
     /**
