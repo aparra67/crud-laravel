@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empleado;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class EmpleadoController extends Controller
 {
     /**
@@ -63,9 +63,11 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
-        //
+        $empleado = Empleado::findOrFail($id);
+        // dd(compact('empleado'));
+        return view('empleado.editar', compact('empleado'));
     }
 
     /**
@@ -75,9 +77,17 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
-        //
+        $datosEmpleado = request()->except(['_token', '_method']);
+        /** SI EXISTE EL ARCHIVO 'Foto' */
+        if ($request->hasFile('Foto')) {
+            $empleado = Empleado::findOrFail($id); // Busca en la BD la informacion correspondiente al id
+            Storage::delete('public/'.$empleado->Foto); // ELIMINA el archivo Foto del storage
+            $datosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public'); // coloca el nuevo archivo en el storage y en la variable correspondiente (Foto)
+        }
+        Empleado::where('id', '=', $id)->update($datosEmpleado);
+        return redirect('empleado');
     }
 
     /**
@@ -86,8 +96,16 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
-        //
+        // dd('hola entre en el controlador');
+        $empleado = Empleado::findOrFail($id); // Busca en la BD la informacion correspondiente al id
+        
+        /** ELIMINACION del archivo Foto del storage */
+        if (Storage::delete('public/'.$empleado->Foto)){
+            Empleado::destroy($id); // BORRA LOS DATOS COMPLETAMENTE DE LA BD
+        }
+        
+        return redirect('empleado');
     }
 }
