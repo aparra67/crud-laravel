@@ -1,5 +1,6 @@
 <div class="container">
     <h1 class="titulo">Lista de empleados</h1>
+    <a href="{{ url('empleado/create') }}">Nuevo Registro</a>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -17,12 +18,22 @@
                 @foreach($empleados as $empleado)
                 <tr class="">
                     <td scope="row">{{ $empleado->id}}</td>
-                    <td>{{ $empleado->Foto}}</td>
+                    <td>
+                        <img src="{{ asset('storage').'/'.$empleado->Foto }}" style="width: 80px; height: auto">
+                    </td>
                     <td>{{ $empleado->Nombre}}</td>
                     <td>{{ $empleado->PrimerApellido}}</td>
                     <td>{{ $empleado->SegundoApellido}}</td>
                     <td>{{ $empleado->Correo}}</td>
-                    <td>Editar | Eliminar</td>
+                    <td>
+                        <a href="{{ url('empleado/'.$empleado->id.'/edit') }}">Editar</a>
+
+                        <form action="{{ url('empleado/'.$empleado->id) }}" method="post">
+                            @csrf
+                            {{ method_field('DELETE') }}
+                            <input type="submit" onclick="return confirm('¿Seguro que deseas borrar este elemento?')" value="Eliminar">
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
