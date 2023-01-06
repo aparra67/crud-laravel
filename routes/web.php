@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('empleado/create', [EmpleadoController::class, 'create'])->name('empleado.create'); */
-Route::resource('empleado', EmpleadoController::class);
+Route::resource('empleado', EmpleadoController::class)->middleware('auth');
 Auth::routes();
 Route::get('/home', [EmpleadoController::class, 'index'])->name('home');
 Route::group(['middleware' => 'auth'], function () {
