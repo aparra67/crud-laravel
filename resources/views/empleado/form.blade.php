@@ -29,5 +29,7 @@
   @endif
   <input class="form-control" type="file" name="Foto" value="" id="Foto">
 </div>
-<a href="{{ url('empleado/') }}" class="me-1">< Volver</a>
-<button type="submit" class="btn btn-success">Enviar</button>
+<div class="d-grid gap-2 d-md-flex justify-content-md-star">
+  <a href="{{ url('empleado/') }}" class="btn btn-primary me-md-2">< Volver</a>
+  <button type="submit" class="btn btn-success">Enviar</button>
+</div>
