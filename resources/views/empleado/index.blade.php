@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <h1 class="text-center">Lista de empleados</h1>
-    <a href="{{ url('empleado/create') }}" class="mb-3">Nuevo Registro</a>
+    <a href="{{ url('empleado/create') }}" class="btn btn-outline-success mb-2">Nuevo Registro</a>
     <div class="table-responsive mt-3">
-        <table class="table table-striped">
-            <thead>
+        <table class="table table-striped bg-primary .bg-gradient bg-opacity-10">
+            <thead class="bg-primary .bg-gradient bg-opacity-50">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Foto</th>
