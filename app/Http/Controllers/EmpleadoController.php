@@ -56,7 +56,7 @@ class EmpleadoController extends Controller
             $datosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public');
         }
         Empleado::insert($datosEmpleado);
-        return redirect('empleado');
+        return redirect('empleado')->with('mensaje', 'Empleado Creado Exitosamente');
     }
 
     /**
@@ -93,6 +93,21 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
     {
         $datosEmpleado = request()->except(['_token', '_method']);
+
+        $campos = [
+            'Nombre' => 'required|string|max:100',
+            'PrimerApellido' => 'required|string|max:100',
+            'SegundoApellido' => 'required|string|max:100',
+            'Correo' => 'required|email'
+        ];
+
+        $mensaje = ['required' => 'El :attribute es requerido'];
+
+        if ($request->hasFile('Foto')) {
+            $campos = ['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
+            $mensaje = ['Foto.required' => 'La foto es requerida']; 
+        }
+        $this->validate($request, $campos, $mensaje);
         /** SI EXISTE EL ARCHIVO 'Foto' */
         if ($request->hasFile('Foto')) {
             $empleado = Empleado::findOrFail($id); // Busca en la BD la informacion correspondiente al id
@@ -100,7 +115,7 @@ class EmpleadoController extends Controller
             $datosEmpleado['Foto'] = $request->file('Foto')->store('uploads', 'public'); // coloca el nuevo archivo en el storage y en la variable correspondiente (Foto)
         }
         Empleado::where('id', '=', $id)->update($datosEmpleado);
-        return redirect('empleado');
+        return redirect('empleado')->with('mensaje', 'Empleado Modificado Exitosamente');
     }
 
     /**
@@ -119,6 +134,6 @@ class EmpleadoController extends Controller
             Empleado::destroy($id); // BORRA LOS DATOS COMPLETAMENTE DE LA BD
         }
         
-        return redirect('empleado');
+        return redirect('empleado')->with('mensaje', 'Empleado Borrado Exitosamente');
     }
 }
