@@ -10,19 +10,19 @@
 
 <div class="form-group">
   <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
-  <input type="text" class="form-control" name="Nombre" value="{{ isset($empleado->Nombre) ? $empleado->Nombre : '' }}" id="Nombre">
+  <input type="text" class="form-control" name="Nombre" value="{{ isset($empleado->Nombre) ? $empleado->Nombre : old('Nombre') }}" id="Nombre">
 </div>
 <div class="form-group">
   <label for="PrimerApellido" class="col-sm-2 col-form-label">Primer Apellido</label>
-  <input type="text" class="form-control" name="PrimerApellido" value="{{ isset($empleado->PrimerApellido) ? $empleado->PrimerApellido : '' }}" id="PrimerApellido">
+  <input type="text" class="form-control" name="PrimerApellido" value="{{ isset($empleado->PrimerApellido) ? $empleado->PrimerApellido : old('PrimerApellido') }}" id="PrimerApellido">
 </div>
 <div class="form-group">
   <label for="SegundoApellido" class="col-sm-2 col-form-label">Segundo Apellido</label>
-  <input type="text" class="form-control" name="SegundoApellido" value="{{ isset($empleado->SegundoApellido) ? $empleado->SegundoApellido : '' }}" id="SegundoApellido">
+  <input type="text" class="form-control" name="SegundoApellido" value="{{ isset($empleado->SegundoApellido) ? $empleado->SegundoApellido : old('SegundoApellido') }}" id="SegundoApellido">
 </div>
 <div class="form-group">
   <label for="Correo" class="col-sm-2 col-form-label">Email</label>
-  <input type="email" class="form-control" name="Correo" value="{{ isset($empleado->Correo) ? $empleado->Correo : '' }}" id="Correo">
+  <input type="email" class="form-control" name="Correo" value="{{ isset($empleado->Correo) ? $empleado->Correo : old('Correo') }}" id="Correo">
 <div class="form-group">
   <label for="Foto" class="col-sm-2 col-form-label">Foto de Perfil</label>
   <br>
